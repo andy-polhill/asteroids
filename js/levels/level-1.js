@@ -36,7 +36,7 @@ var Level1 = (function() {
       return this.ground;
     },
     getGravity: function() {
-      return 30; // pixels/second/second
+      return 0;//30; // pixels/second/second
     }/*
     getPad : function() {
       return this.pad;
