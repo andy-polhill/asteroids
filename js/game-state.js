@@ -7,12 +7,12 @@ var GameState = (function(){
   // Load images and sounds
   gameState.prototype = {
     preload : function() {
-      this.game.load.image('ship', '/assets/ship.png', 32, 32);
-      this.game.load.image('ground', '/assets/asteroid-2.png', 240, 150);
-      this.game.load.image('asteroid', '/assets/asteroid-14.png', 110, 110);
-      this.game.load.spritesheet('pad', '/assets/landing-zone.png', 100, 100);
-      this.game.load.image('space', '/assets/background.jpg');
-      this.game.load.spritesheet('explosion', '/assets/explosion.png', 32, 32);
+      this.game.load.image('ship', 'assets/ship.png', 32, 32);
+      this.game.load.image('ground', 'assets/asteroid-2.png', 240, 150);
+      this.game.load.image('asteroid', 'assets/asteroid-14.png', 110, 110);
+      this.game.load.spritesheet('pad', 'assets/landing-zone.png', 100, 100);
+      this.game.load.image('space', 'assets/background.jpg');
+      this.game.load.spritesheet('explosion', 'assets/explosion.png', 32, 32);
     },
 
     // Setup the example
