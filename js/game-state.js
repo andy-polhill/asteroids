@@ -17,6 +17,13 @@ var GameState = (function(){
 
     // Setup the example
     create : function() {
+
+      this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;//SHOW_ALL;
+      this.game.scale.pageAlignHorizontally = true;
+      this.game.scale.pageAlignVertically = true;
+      this.game.scale.setMaximum();
+      this.game.scale.setScreenSize(true);
+
       // Set stage background color
       //this.game.stage.backgroundColor = 0x333333;
       this.game.add.sprite(0, 0, 'space');
