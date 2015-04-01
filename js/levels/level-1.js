@@ -2,45 +2,25 @@ var Level1 = (function() {
 
   function level(game) { //create
 
+    this.GRAVITY = 0;
     this.game = game;
     // Create some ground for the ship to land on
-    this.ground = this.game.add.group();
-
-    var groundBlock = this.game.add.sprite(this.game.width / 2, this.game.height - 100, 'ground');
-    this.game.physics.enable(groundBlock, Phaser.Physics.ARCADE);
-    groundBlock.body.immovable = true;
-    groundBlock.body.allowGravity = false;
-    this.ground.add(groundBlock);
-
-    var asteroid = this.game.add.sprite(100, this.game.height - 100, 'asteroid');
-    this.game.physics.enable(asteroid, Phaser.Physics.ARCADE);
-    //groundBlock.body.immovable = true
-    //asteroid.body.velocity.setTo(21, 5);
-    asteroid.body.immovable = true;
-    asteroid.body.allowGravity = false;
-    this.ground.add(asteroid);
-
-    // Create some ground for the ship to land on
-    /*this.pad = this.game.add.group();
-
-    var landingPad = this.game.add.sprite(this.game.width / 2 + 50, this.game.height - 120, 'pad');
-    this.game.physics.enable(landingPad, Phaser.Physics.ARCADE);
-    landingPad.body.immovable = true;
-    landingPad.body.allowGravity = false;
-    this.pad.add(landingPad);*/
+    // this.ground = this.game.add.group();
 
   }
 
   level.prototype = {
-    getGround : function() {
-      return this.ground;
+    create: function() {
+      this.asteroid = this.game.add.sprite(300, this.game.height - 100, 'asteroid');
+      this.game.physics.enable(this.asteroid, Phaser.Physics.P2JS);
+      this.asteroid.body.clearShapes();
+      this.asteroid.body.loadPolygon('physics', 'asteroid');
+      this.asteroid.body.static = true;
+
     },
-    getGravity: function() {
-      return 30; // pixels/second/second
-    }/*
-    getPad : function() {
-      return this.pad;
-    }*/
+    getGround : function() {
+      return this.asteroid;
+    }
   }
 
   return level;
