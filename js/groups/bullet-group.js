@@ -22,20 +22,27 @@ BulletGroup.prototype.get = function(opts, collisionGroups, explosions) {
 
     bullet.body.setCollisionGroup(collisionGroups.bullet);
 
+    //FIXME CALLED TWICE PER BULLET
     bullet.body.collides(collisionGroups.asteroid, function(bulletBody, asteroidBody) {
-      console.log('collides');
-      bulletBody.sprite.kill();
-      asteroidBody.sprite.damage(bulletBody.sprite.strength);
-      explosions.get(bulletBody.x, bulletBody.y);
+      if(!bulletBody.hasCollided) {
+        bulletBody.sprite.kill();
+        asteroidBody.sprite.damage(bulletBody.sprite.strength);
+        explosions.get({
+          'x':bulletBody.x,
+          'y':bulletBody.y,
+          'variant': 'explosion'
+        });
+        bulletBody.hasCollided = true;
+      }
     }, this);
 
-    console.log('create new bullet');
   }
 
   // Revive the bullet (set it's alive property to true)
   // You can also define a onRevived event handler in your bullet objects
   // to do stuff when they are revived.
   bullet.revive();
+  bullet.body.hasCollided = false;
 
   // Move the bullet to the given coordinates
   bullet.body.x = opts.x;

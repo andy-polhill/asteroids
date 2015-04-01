@@ -24,4 +24,4 @@ var Bullet = (function() {
 })();
 
 Bullet.THRUST = 800000;
-Bullet.STRENGTH = 5;
+Bullet.STRENGTH = 15;

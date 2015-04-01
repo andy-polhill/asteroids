@@ -7,13 +7,13 @@ ExplosionGroup = function (game) {
 ExplosionGroup.prototype = Object.create(Phaser.Group.prototype);
 ExplosionGroup.prototype.constructor = ExplosionGroup;
 
-ExplosionGroup.prototype.get = function(x, y) {
+ExplosionGroup.prototype.get = function(opts) {
   // Get the first dead explosion from the explosionGroup
   var explosion = this.getFirstDead();
 
   // If there aren't any available, create a new one
   if (explosion === null) {
-    explosion = this.add(new Explosion(game, x, y));
+    explosion = this.add(new Explosion(game, opts));
   }
 
   // Revive the explosion (set it's alive property to true)
@@ -22,8 +22,8 @@ ExplosionGroup.prototype.get = function(x, y) {
   explosion.revive();
 
   // Move the explosion to the given coordinates
-  explosion.x = x;
-  explosion.y = y;
+  explosion.x = opts.x;
+  explosion.y = opts.y;
 
   // Set rotation of the explosion at random for a little variety
   explosion.angle = this.game.rnd.integerInRange(0, 360);

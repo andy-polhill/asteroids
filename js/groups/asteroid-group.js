@@ -55,7 +55,7 @@ AsteroidGroup.prototype.create = function(opts) {
   return asteroid;
 }
 
-Asteroid.HEALTH_AREA_RATIO=1500;
+Asteroid.HEALTH_AREA_RATIO=500;
 Asteroid.MASS_AREA_RATIO=500
 Asteroid.DATA = {
   'asteroid-01': {

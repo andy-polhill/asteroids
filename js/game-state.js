@@ -21,6 +21,7 @@ var GameState = (function(){
       this.game.load.spritesheet('asteroid-14', 'assets/asteroid-14.png', 110, 110);
       this.game.load.spritesheet('asteroid-15', 'assets/asteroid-15.png', 70, 100);
       this.game.load.spritesheet('explosion', 'assets/explosion.png', 140, 140);
+      this.game.load.spritesheet('explosion', 'assets/explosion-big.png', 1210, 210);
 
       this.game.load.physics('physics', 'assets/physics/sprites.json');
     },
@@ -64,7 +65,11 @@ var GameState = (function(){
 
       //Create an explosion when ship is destroyed
       this.ship.events.onKilled.add(function(sprite) {
-        this.explosions.get(sprite.x, sprite.y);
+        this.explosions.get({
+          'x':sprite.x,
+          'y':sprite.y,
+          'variant': 'explosion'
+        });
       }, this);
 
       // Prevent default cursor actions.
