@@ -66,9 +66,9 @@ module.exports = Bullet;
 },{}],3:[function(require,module,exports){
 var Explosion = (function() {
 
-  function Explosion(game, x, y) { //create
+  function Explosion(game, opts) { //create
 
-    Phaser.Sprite.call(this, game, x, y, 'explosion');
+    Phaser.Sprite.call(this, game, opts.x, opts.y, opts.variant);
 
     var boom = this.animations.add('boom', [0,1,2,3,4,5,6,7,8], 20, false);
     boom.killOnComplete = true;
@@ -165,7 +165,7 @@ var gameState = {
     game.load.spritesheet('asteroid-15', 'assets/asteroid-15.png', 70, 100);
 
     game.load.spritesheet('explosion', 'assets/explosion.png', 140, 140);
-    game.load.spritesheet('explosion-big', 'assets/explosion-big.png', 1210, 210);
+    game.load.spritesheet('explosion-big', 'assets/explosion-big.png', 210, 210);
 
     game.load.physics('physics', 'assets/physics/sprites.json');
   },
@@ -197,12 +197,12 @@ var gameState = {
     this.ship = ship.getInstance();
     this.asteroids = asteroids.getInstance();
     this.bullets = bullets.getInstance();
-
+    this.explosions = explosions.getInstance();
 
     game.add.existing(this.ship);
     game.add.existing(bullets.getInstance());
     game.add.existing(this.asteroids);
-    game.add.existing(explosions.getInstance());
+    game.add.existing(this.explosions);
 
     this.asteroids.get({
       'variant': 'asteroid-01',
@@ -212,7 +212,7 @@ var gameState = {
 
     this.ship.body.setCollisionGroup(this.collisionGroups.ship);
     this.ship.body.collides(this.collisionGroups.asteroid, function(ship, asteroid) {
-      ship.explode();
+      this.ship.explode();
     }, this);
 
     //Create an explosion when ship is destroyed
@@ -325,7 +325,7 @@ AsteroidGroup.prototype.onKilled = function(sprite) {
   explosions.getInstance().get({
     'x':sprite.body.x,
     'y':sprite.body.y,
-    'variant': 'explosion-large'
+    'variant': 'explosion-big'
   });
 
   var children = Asteroid.DATA[sprite.variant].children;
@@ -590,7 +590,13 @@ ExplosionGroup.prototype.constructor = ExplosionGroup;
 
 ExplosionGroup.prototype.get = function(opts) {
   // Get the first dead explosion from the explosionGroup
-  var explosion = this.getFirstDead();
+  var explosion = null;
+
+  this.forEachDead(function(deadExplosion, variant) {
+    if(deadExplosion.variant === variant && explosion !== null) {
+      explosion = deadExplosion;
+    }
+  }, this, opts.variant)
 
   // If there aren't any available, create a new one
   if (explosion === null) {

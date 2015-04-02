@@ -23,7 +23,7 @@ var gameState = {
     game.load.spritesheet('asteroid-15', 'assets/asteroid-15.png', 70, 100);
 
     game.load.spritesheet('explosion', 'assets/explosion.png', 140, 140);
-    game.load.spritesheet('explosion-big', 'assets/explosion-big.png', 1210, 210);
+    game.load.spritesheet('explosion-big', 'assets/explosion-big.png', 210, 210);
 
     game.load.physics('physics', 'assets/physics/sprites.json');
   },
@@ -55,12 +55,12 @@ var gameState = {
     this.ship = ship.getInstance();
     this.asteroids = asteroids.getInstance();
     this.bullets = bullets.getInstance();
-
+    this.explosions = explosions.getInstance();
 
     game.add.existing(this.ship);
     game.add.existing(bullets.getInstance());
     game.add.existing(this.asteroids);
-    game.add.existing(explosions.getInstance());
+    game.add.existing(this.explosions);
 
     this.asteroids.get({
       'variant': 'asteroid-01',
@@ -70,7 +70,7 @@ var gameState = {
 
     this.ship.body.setCollisionGroup(this.collisionGroups.ship);
     this.ship.body.collides(this.collisionGroups.asteroid, function(ship, asteroid) {
-      ship.explode();
+      this.ship.explode();
     }, this);
 
     //Create an explosion when ship is destroyed

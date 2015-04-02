@@ -10,7 +10,13 @@ ExplosionGroup.prototype.constructor = ExplosionGroup;
 
 ExplosionGroup.prototype.get = function(opts) {
   // Get the first dead explosion from the explosionGroup
-  var explosion = this.getFirstDead();
+  var explosion = null;
+
+  this.forEachDead(function(deadExplosion, variant) {
+    if(deadExplosion.variant === variant && explosion !== null) {
+      explosion = deadExplosion;
+    }
+  }, this, opts.variant)
 
   // If there aren't any available, create a new one
   if (explosion === null) {

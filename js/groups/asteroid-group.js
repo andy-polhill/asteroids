@@ -16,7 +16,7 @@ AsteroidGroup.prototype.onKilled = function(sprite) {
   explosions.getInstance().get({
     'x':sprite.body.x,
     'y':sprite.body.y,
-    'variant': 'explosion-large'
+    'variant': 'explosion-big'
   });
 
   var children = Asteroid.DATA[sprite.variant].children;
