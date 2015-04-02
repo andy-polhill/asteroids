@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=568, height=320">
-	<title>Phaser - Making your first game, part 2</title>
+	<title>Asteroids</title>
 	<script type="text/javascript" src="node_modules/phaser/dist/phaser.js"></script>
     <style type="text/css">
         body {
@@ -16,22 +16,19 @@
 
 <script type="text/javascript" src="node_modules/dat-gui/dat.gui.js"></script>
 
-<script type="text/javascript" src="js/game-state.js"></script>
-<script type="text/javascript" src="js/utils/input-utils-a.js"></script>
+<script type="text/javascript" src="asteroids.js"></script>
+<!--script type="text/javascript" src="js/utils/input-utils-a.js"></script>
 <script type="text/javascript" src="js/elements/ship.js"></script>
 <script type="text/javascript" src="js/elements/bullet.js"></script>
 <script type="text/javascript" src="js/elements/explosion.js"></script>
 <script type="text/javascript" src="js/elements/asteroid.js"></script>
 <script type="text/javascript" src="js/groups/asteroid-group.js"></script>
 <script type="text/javascript" src="js/groups/explosion-group.js"></script>
-<script type="text/javascript" src="js/groups/bullet-group.js"></script>
+<script type="text/javascript" src="js/groups/bullet-group.js"></script-->
 <script type="text/javascript">
-	var game = new Phaser.Game(2048, 1536, Phaser.AUTO, 'game');
-	var gameState = new GameState(game);
-	game.state.add('game', gameState, true);
 
 
-	var gui = new dat.GUI();
+	/*var gui = new dat.GUI();
 
 	var shipFolder = gui.addFolder('Ship');
 	shipFolder.add(Ship, 'THRUST');
@@ -40,7 +37,7 @@
 
 	var rocketFolder = gui.addFolder('Bullet');
 	rocketFolder.add(Bullet, 'THRUST');
-
+*/
 </script>
 
 </body>

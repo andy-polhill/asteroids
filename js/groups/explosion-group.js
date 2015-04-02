@@ -1,7 +1,8 @@
-ExplosionGroup = function (game) {
-  Phaser.Group.call(this, game);
-  var collisionGroup = game.physics.p2.createCollisionGroup();
+var game = require('../game');
+var Explosion = require('../elements/explosion');
 
+ExplosionGroup = function () {
+  Phaser.Group.call(this, game);
 };
 
 ExplosionGroup.prototype = Object.create(Phaser.Group.prototype);
@@ -26,7 +27,7 @@ ExplosionGroup.prototype.get = function(opts) {
   explosion.y = opts.y;
 
   // Set rotation of the explosion at random for a little variety
-  explosion.angle = this.game.rnd.integerInRange(0, 360);
+  explosion.angle = game.rnd.integerInRange(0, 360);
 
   // Play the animation
   explosion.animations.play('boom');
@@ -34,3 +35,20 @@ ExplosionGroup.prototype.get = function(opts) {
   // Return the explosion itself in case we want to do anything else with it
   return explosion;
 }
+
+module.exports = (function(){
+ var instance;
+
+ function createInstance() {
+   var object = new ExplosionGroup();
+   return object;
+ }
+ return {
+   getInstance: function() {
+     if(!instance){
+       instance = createInstance();
+     }
+     return instance;
+   }
+ }
+})();

@@ -1,6 +1,8 @@
+var game = require('../game');
+
 var Ship = (function() {
 
-  function Ship(game) { //create
+  function Ship() { //create
 
     Phaser.Sprite.call(this, game, 100, 100, 'ship');
     this.anchor.setTo(0.5, 0.5);
@@ -9,6 +11,7 @@ var Ship = (function() {
     this.reset();
     this.body.clearShapes();
     this.body.loadPolygon('physics', 'ship');
+
   }
 
   Ship.prototype = Object.create(Phaser.Sprite.prototype);
@@ -28,6 +31,24 @@ var Ship = (function() {
 
 })();
 
-Ship.THRUST = 500;
-Ship.REVERSE_THRUST = 200;
-Ship.ROTATION_SPEED = 50;
+
+module.exports = (function(){
+ var instance;
+
+ function createInstance() {
+   var object = new Ship();
+   object.THRUST = 500;
+   object.REVERSE_THRUST = 200;
+   object.ROTATION_SPEED = 50;
+
+   return object;
+ }
+ return {
+   getInstance: function() {
+     if(!instance){
+       instance = createInstance();
+     }
+     return instance;
+   }
+ }
+})();

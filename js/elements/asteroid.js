@@ -28,3 +28,5 @@ Asteroid.MIN_START_THRUST = 400000;
 Asteroid.MAX_START_THRUST = 800000;
 Asteroid.MIN_START_ROTATE = 20;
 Asteroid.MAX_START_ROTATE = 100;
+
+module.exports = Asteroid;

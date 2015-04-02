@@ -14,3 +14,5 @@ var Explosion = (function() {
   return Explosion;
 
 })();
+
+module.exports = Explosion;

@@ -14,12 +14,20 @@ module.exports = function(grunt) {
           open: 'http://localhost:9000/index.html'
         }
       }
+    },
+    browserify: {
+      dist: {
+        files: {
+          'asteroids.js': ['js/**/*.js'],
+        },
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-browserify');
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['connect:server']);
+  grunt.registerTask('default', ['browserify', 'connect:server']);
 
 };

@@ -1,7 +1,11 @@
-BulletGroup = function (game) {
+var game = require('../game');
+var Bullet = require('../elements/bullet');
+var collisionGroups = require('./collision-groups');
+var explosions = require('./explosion-group');
+
+BulletGroup = function () {
   Phaser.Group.call(this, game);
   this.enableBody = true;
-  this.game = game;
   this.physicsBodyType = Phaser.Physics.P2JS;
 };
 
@@ -9,7 +13,7 @@ BulletGroup.prototype = Object.create(Phaser.Group.prototype);
 BulletGroup.prototype.constructor = BulletGroup;
 
 //FIXME; Dependency mess
-BulletGroup.prototype.get = function(opts, collisionGroups, explosions) {
+BulletGroup.prototype.get = function(opts) {
 
   console.log('bullet get');
   // Get the first dead bullet from the bulletGroup
@@ -20,14 +24,14 @@ BulletGroup.prototype.get = function(opts, collisionGroups, explosions) {
     opts.variant = 'bullet';
     bullet = this.add(new Bullet(game, opts));
 
-    bullet.body.setCollisionGroup(collisionGroups.bullet);
+    bullet.body.setCollisionGroup(collisionGroups.getInstance().bullet);
 
     //FIXME CALLED TWICE PER BULLET
-    bullet.body.collides(collisionGroups.asteroid, function(bulletBody, asteroidBody) {
+    bullet.body.collides(collisionGroups.getInstance().asteroid, function(bulletBody, asteroidBody) {
       if(!bulletBody.hasCollided) {
         bulletBody.sprite.kill();
         asteroidBody.sprite.damage(bulletBody.sprite.strength);
-        explosions.get({
+        explosions.getInstance().get({
           'x':bulletBody.x,
           'y':bulletBody.y,
           'variant': 'explosion'
@@ -57,3 +61,20 @@ BulletGroup.prototype.get = function(opts, collisionGroups, explosions) {
   // Return the explosion itself in case we want to do anything else with it
   return bullet;
 }
+
+module.exports = (function(){
+ var instance;
+
+ function createInstance() {
+   var object = new BulletGroup();
+   return object;
+ }
+ return {
+   getInstance: function() {
+     if(!instance){
+       instance = createInstance();
+     }
+     return instance;
+   }
+ }
+})();

@@ -25,3 +25,5 @@ var Bullet = (function() {
 
 Bullet.THRUST = 800000;
 Bullet.STRENGTH = 15;
+
+module.exports = Bullet;
